@@ -1,0 +1,115 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOjTpheJMqgDB0jR5v0WRPe",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ramu1027/vtu30089-ACS-modules/blob/main/task-5\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 7,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JPja7BzU3zkA",
+        "outputId": "c90347fc-1c0c-4f61-b1a9-0bf81fcc9069"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Factory Temperature Monitor\n",
+            "Enter number of temperature readings: 7\n",
+            "Enter temperature 1 (°C): 28\n",
+            "Enter temperature 2 (°C): 35\n",
+            "Enter temperature 3 (°C): 30\n",
+            "Enter temperature 4 (°C): 25\n",
+            "Enter temperature 5 (°C): 40\n",
+            "Enter temperature 6 (°C): 38\n",
+            "Enter temperature 7 (°C): 42\n",
+            "\n",
+            "Factory Temperature Report\n",
+            "--------------------------\n",
+            "Reading 1: 28.0°C - NORMAL\n",
+            "Reading 2: 35.0°C - NORMAL\n",
+            "Reading 3: 30.0°C - NORMAL\n",
+            "Reading 4: 25.0°C - NORMAL\n",
+            "Reading 5: 40.0°C - NORMAL\n",
+            "Reading 6: 38.0°C - NORMAL\n",
+            "Reading 7: 42.0°C - NORMAL\n",
+            "\n",
+            "Average Temperature: 34.0 °C\n",
+            "Maximum Temperature: 42.0 °C\n",
+            "Minimum Temperature: 25.0 °C\n",
+            "Factory Status: TEMPERATURE WITHIN SAFE RANGE\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "print(\"Factory Temperature Monitor\")\n",
+        "\n",
+        "n = int(input(\"Enter number of temperature readings: \"))\n",
+        "\n",
+        "if n <= 0:\n",
+        "    print(\"Invalid number of readings.\")\n",
+        "else:\n",
+        "    temperatures = []\n",
+        "\n",
+        "    for i in range(n):\n",
+        "        temp = float(input(f\"Enter temperature {i + 1} (°C): \"))\n",
+        "        temperatures.append(temp)\n",
+        "\n",
+        "    print(\"\\nFactory Temperature Report\")\n",
+        "    print(\"--------------------------\")\n",
+        "\n",
+        "    for i, temp in enumerate(temperatures, start=1):\n",
+        "        if temp < 10:\n",
+        "            status = \"LOW TEMPERATURE\"\n",
+        "        elif temp <= 80:\n",
+        "            status = \"NORMAL\"\n",
+        "        else:\n",
+        "            status = \"HIGH TEMPERATURE - ALERT\"\n",
+        "\n",
+        "        print(f\"Reading {i}: {temp:.1f}°C - {status}\")\n",
+        "\n",
+        "    average = sum(temperatures) / n\n",
+        "    maximum = max(temperatures)\n",
+        "    minimum = min(temperatures)\n",
+        "\n",
+        "    print(\"\\nAverage Temperature:\", round(average, 2), \"°C\")\n",
+        "    print(\"Maximum Temperature:\", maximum, \"°C\")\n",
+        "    print(\"Minimum Temperature:\", minimum, \"°C\")\n",
+        "\n",
+        "    if maximum > 80:\n",
+        "        print(\"Factory Status: WARNING - Check the equipment\")\n",
+        "    else:\n",
+        "        print(\"Factory Status: TEMPERATURE WITHIN SAFE RANGE\")\n",
+        "\n"
+      ]
+    }
+  ]
+}

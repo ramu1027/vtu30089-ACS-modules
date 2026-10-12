@@ -1,0 +1,136 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMr+5JAZnfB+D9kkykuRMVw",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ramu1027/vtu30089-ACS-modules/blob/main/task-11\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 16,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JPja7BzU3zkA",
+        "outputId": "79a46242-6e18-4333-e1c7-9f523e6c2b18"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Forest Fire Spread Simulator\n",
+            "0 = Empty, 1 = Tree, 2 = Burning Tree\n",
+            "Enter number of rows: 3\n",
+            "Enter number of columns: 2\n",
+            "Enter the forest grid row by row:\n",
+            "12\n",
+            "Invalid forest grid.\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "from collections import deque\n",
+        "\n",
+        "def simulate_fire(forest, rows, cols):\n",
+        "    queue = deque()\n",
+        "    time = [[-1] * cols for _ in range(rows)]\n",
+        "\n",
+        "    # Find initially burning trees\n",
+        "    for r in range(rows):\n",
+        "        for c in range(cols):\n",
+        "            if forest[r][c] == 2:\n",
+        "                queue.append((r, c))\n",
+        "                time[r][c] = 0\n",
+        "\n",
+        "    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]\n",
+        "\n",
+        "    while queue:\n",
+        "        r, c = queue.popleft()\n",
+        "\n",
+        "        for dr, dc in directions:\n",
+        "            nr, nc = r + dr, c + dc\n",
+        "\n",
+        "            if (0 <= nr < rows and 0 <= nc < cols\n",
+        "                    and forest[nr][nc] == 1):\n",
+        "                forest[nr][nc] = 2\n",
+        "                time[nr][nc] = time[r][c] + 1\n",
+        "                queue.append((nr, nc))\n",
+        "\n",
+        "    return forest, time\n",
+        "\n",
+        "\n",
+        "print(\"Forest Fire Spread Simulator\")\n",
+        "print(\"0 = Empty, 1 = Tree, 2 = Burning Tree\")\n",
+        "\n",
+        "rows = int(input(\"Enter number of rows: \"))\n",
+        "cols = int(input(\"Enter number of columns: \"))\n",
+        "\n",
+        "if rows <= 0 or cols <= 0:\n",
+        "    print(\"Invalid forest dimensions.\")\n",
+        "else:\n",
+        "    forest = []\n",
+        "\n",
+        "    print(\"Enter the forest grid row by row:\")\n",
+        "    valid = True\n",
+        "\n",
+        "    for _ in range(rows):\n",
+        "        row = list(map(int, input().split()))\n",
+        "\n",
+        "        if len(row) != cols or any(x not in (0, 1, 2) for x in row):\n",
+        "            valid = False\n",
+        "            break\n",
+        "\n",
+        "        forest.append(row)\n",
+        "\n",
+        "    if not valid:\n",
+        "        print(\"Invalid forest grid.\")\n",
+        "    elif not any(2 in row for row in forest):\n",
+        "        print(\"No initial fire found.\")\n",
+        "    else:\n",
+        "        result, time = simulate_fire(forest, rows, cols)\n",
+        "\n",
+        "        print(\"\\nFinal Forest State:\")\n",
+        "        for row in result:\n",
+        "            print(\" \".join(map(str, row)))\n",
+        "\n",
+        "        print(\"\\nFire Arrival Time (-1 = never reached):\")\n",
+        "        for row in time:\n",
+        "            print(\" \".join(map(str, row)))\n",
+        "\n",
+        "        remaining = sum(row.count(1) for row in result)\n",
+        "        burned = sum(row.count(2) for row in result)\n",
+        "\n",
+        "        print(\"\\nBurning or Burned Cells:\", burned)\n",
+        "        print(\"Unaffected Trees:\", remaining)\n"
+      ]
+    }
+  ]
+}

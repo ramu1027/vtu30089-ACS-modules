@@ -1,0 +1,148 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOQj0+6DB/4FDhoNrq08Lzo",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ramu1027/vtu30089-ACS-modules/blob/main/task-12\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 19,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JPja7BzU3zkA",
+        "outputId": "99dd716a-b183-4e3e-8786-fa690c6e5be6"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Smart Course Planner and Dependency Analyzer\n",
+            "Enter number of courses: 2\n",
+            "Enter number of prerequisite relationships: 1\n",
+            "Enter course names:\n",
+            "mpc\n",
+            "physics\n",
+            "Enter prerequisite pairs: course prerequisite\n",
+            "physics mpc\n",
+            "\n",
+            "Recommended Course Order:\n",
+            "Step 1: mpc\n",
+            "Step 2: physics\n",
+            "\n",
+            "All course dependencies are satisfied.\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "from collections import deque, defaultdict\n",
+        "\n",
+        "def plan_courses(courses, prerequisites):\n",
+        "    graph = defaultdict(list)\n",
+        "    indegree = {course: 0 for course in courses}\n",
+        "\n",
+        "    for course, prerequisite in prerequisites:\n",
+        "        graph[prerequisite].append(course)\n",
+        "        indegree[course] += 1\n",
+        "\n",
+        "    queue = deque(\n",
+        "        course for course in courses if indegree[course] == 0\n",
+        "    )\n",
+        "\n",
+        "    order = []\n",
+        "\n",
+        "    while queue:\n",
+        "        course = queue.popleft()\n",
+        "        order.append(course)\n",
+        "\n",
+        "        for next_course in graph[course]:\n",
+        "            indegree[next_course] -= 1\n",
+        "\n",
+        "            if indegree[next_course] == 0:\n",
+        "                queue.append(next_course)\n",
+        "\n",
+        "    if len(order) != len(courses):\n",
+        "        return None\n",
+        "\n",
+        "    return order\n",
+        "\n",
+        "\n",
+        "print(\"Smart Course Planner and Dependency Analyzer\")\n",
+        "\n",
+        "n = int(input(\"Enter number of courses: \"))\n",
+        "m = int(input(\"Enter number of prerequisite relationships: \"))\n",
+        "\n",
+        "if n <= 0 or m < 0:\n",
+        "    print(\"Invalid input.\")\n",
+        "else:\n",
+        "    courses = []\n",
+        "\n",
+        "    print(\"Enter course names:\")\n",
+        "    for i in range(n):\n",
+        "        courses.append(input().strip())\n",
+        "\n",
+        "    if len(set(courses)) != n or any(not c for c in courses):\n",
+        "        print(\"Course names must be non-empty and unique.\")\n",
+        "    else:\n",
+        "        course_set = set(courses)\n",
+        "        prerequisites = []\n",
+        "        valid = True\n",
+        "\n",
+        "        print(\"Enter prerequisite pairs: course prerequisite\")\n",
+        "\n",
+        "        for _ in range(m):\n",
+        "            course, prerequisite = input().split()\n",
+        "\n",
+        "            if course not in course_set or prerequisite not in course_set:\n",
+        "                print(\"Invalid course name in prerequisite pair.\")\n",
+        "                valid = False\n",
+        "                break\n",
+        "\n",
+        "            prerequisites.append((course, prerequisite))\n",
+        "\n",
+        "        if valid:\n",
+        "            order = plan_courses(courses, prerequisites)\n",
+        "\n",
+        "            if order is None:\n",
+        "                print(\"\\nCircular dependency detected!\")\n",
+        "                print(\"No valid course order exists.\")\n",
+        "            else:\n",
+        "                print(\"\\nRecommended Course Order:\")\n",
+        "                for semester, course in enumerate(order, start=1):\n",
+        "                    print(f\"Step {semester}: {course}\")\n",
+        "\n",
+        "                print(\"\\nAll course dependencies are satisfied.\")\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n"
+      ]
+    }
+  ]
+}

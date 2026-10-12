@@ -1,0 +1,94 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPN+YK+2Epk0bLfimuEjNLq",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ramu1027/vtu30089-ACS-modules/blob/main/task-1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "print(\"Traffic Signal Congestion Analyzer\")\n",
+        "\n",
+        "vehicles = int(input(\"Enter number of vehicles: \"))\n",
+        "\n",
+        "if vehicles < 0:\n",
+        "    print(\"Invalid number of vehicles.\")\n",
+        "else:\n",
+        "    signal = input(\"Enter signal color (RED/GREEN): \").upper()\n",
+        "\n",
+        "    if vehicles <= 10:\n",
+        "        print(\"Congestion Level: LOW\")\n",
+        "        green_time = 15\n",
+        "    elif vehicles <= 30:\n",
+        "        print(\"Congestion Level: MEDIUM\")\n",
+        "        green_time = 30\n",
+        "    else:\n",
+        "        print(\"Congestion Level: HIGH\")\n",
+        "        green_time = 60\n",
+        "\n",
+        "    print(\"Recommended Green Time:\", green_time, \"seconds\")\n",
+        "\n",
+        "    if signal == \"RED\":\n",
+        "        print(\"Signal Status: RED - Please Wait\")\n",
+        "    elif signal == \"GREEN\":\n",
+        "        print(\"Signal Status: GREEN - You Can Move\")\n",
+        "    else:\n",
+        "        print(\"Invalid signal color.\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "vZ8qq6Wx35aP",
+        "outputId": "ac0b2ddf-1349-4f99-bddf-7721ddceb95f"
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Traffic Signal Congestion Analyzer\n",
+            "Enter number of vehicles: 10\n",
+            "Enter signal color (RED/GREEN): red\n",
+            "Congestion Level: LOW\n",
+            "Recommended Green Time: 15 seconds\n",
+            "Signal Status: RED - Please Wait\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "JPja7BzU3zkA"
+      },
+      "outputs": [],
+      "source": []
+    }
+  ]
+}

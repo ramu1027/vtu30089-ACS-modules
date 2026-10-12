@@ -1,0 +1,84 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMsOoQATBkxBari114NBoqz",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ramu1027/vtu30089-ACS-modules/blob/main/task-4\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 6,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JPja7BzU3zkA",
+        "outputId": "dc955610-ff87-41c9-a5e6-1fc1552e915a"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Server Request Validator\n",
+            "Enter HTTP method (GET/POST/PUT/DELETE): ({[3]})\n",
+            "Enter URL path: VALID\n",
+            "Enter authentication token: 5\n",
+            "Request Status: INVALID\n",
+            "Reason: Invalid HTTP method\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "print(\"Server Request Validator\")\n",
+        "\n",
+        "method = input(\"Enter HTTP method (GET/POST/PUT/DELETE): \").upper()\n",
+        "path = input(\"Enter URL path: \").strip()\n",
+        "token = input(\"Enter authentication token: \").strip()\n",
+        "\n",
+        "valid_methods = [\"GET\", \"POST\", \"PUT\", \"DELETE\"]\n",
+        "\n",
+        "if method not in valid_methods:\n",
+        "    print(\"Request Status: INVALID\")\n",
+        "    print(\"Reason: Invalid HTTP method\")\n",
+        "\n",
+        "elif not path.startswith(\"/\") or \" \" in path or not path:\n",
+        "    print(\"Request Status: INVALID\")\n",
+        "    print(\"Reason: Invalid URL path\")\n",
+        "\n",
+        "elif not token:\n",
+        "    print(\"Request Status: INVALID\")\n",
+        "    print(\"Reason: Missing authentication token\")\n",
+        "\n",
+        "else:\n",
+        "    print(\"Request Status: VALID\")\n",
+        "    print(\"HTTP Method:\", method)\n",
+        "    print(\"URL Path:\", path)\n",
+        "    print(\"Authentication: Present\")\n",
+        "\n"
+      ]
+    }
+  ]
+}

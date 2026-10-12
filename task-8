@@ -1,0 +1,114 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNEvxldJBlII3BfqIlFg29C",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ramu1027/vtu30089-ACS-modules/blob/main/task-8\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 12,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JPja7BzU3zkA",
+        "outputId": "ac59e351-ede9-4dff-951e-2e59764f517c"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Emergency Route Meeting Point\n",
+            "Enter number of locations: 3\n",
+            "Enter location names:\n",
+            "chennai\n",
+            "avadi\n",
+            "veltech\n",
+            "\n",
+            "Enter the distance matrix:\n",
+            "Enter 3 distances in each row, separated by spaces.\n",
+            "10\n",
+            "Invalid distance matrix.\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "\n",
+        "def find_meeting_point(distances, locations):\n",
+        "    best_location = None\n",
+        "    minimum_total_distance = float(\"inf\")\n",
+        "\n",
+        "    for meeting in locations:\n",
+        "        total_distance = 0\n",
+        "\n",
+        "        for person in locations:\n",
+        "            total_distance += distances[person][meeting]\n",
+        "\n",
+        "        if total_distance < minimum_total_distance:\n",
+        "            minimum_total_distance = total_distance\n",
+        "            best_location = meeting\n",
+        "\n",
+        "    return best_location, minimum_total_distance\n",
+        "\n",
+        "\n",
+        "print(\"Emergency Route Meeting Point\")\n",
+        "\n",
+        "n = int(input(\"Enter number of locations: \"))\n",
+        "\n",
+        "if n <= 0:\n",
+        "    print(\"Invalid number of locations.\")\n",
+        "else:\n",
+        "    locations = []\n",
+        "\n",
+        "    print(\"Enter location names:\")\n",
+        "    for i in range(n):\n",
+        "        locations.append(input().strip())\n",
+        "\n",
+        "    distances = {}\n",
+        "\n",
+        "    print(\"\\nEnter the distance matrix:\")\n",
+        "    print(\"Enter\", n, \"distances in each row, separated by spaces.\")\n",
+        "\n",
+        "    for location in locations:\n",
+        "        row = list(map(int, input().split()))\n",
+        "\n",
+        "        if len(row) != n or any(d < 0 for d in row):\n",
+        "            print(\"Invalid distance matrix.\")\n",
+        "            break\n",
+        "\n",
+        "        distances[location] = {\n",
+        "            locations[i]: row[i] for i in range(n)\n",
+        "        }\n",
+        "    else:\n",
+        "        meeting, total = find_meeting_point(distances, locations)\n",
+        "\n",
+        "        print(\"\\nEmergency Meeting Point:\", meeting)\n",
+        "        print(\"Total Distance:\", total)\n"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPSPa83wQG9ZuholphVMhaC",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ramu1027/vtu30089-ACS-modules/blob/main/task-7\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 11,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JPja7BzU3zkA",
+        "outputId": "fb918db7-422d-4c2f-ca8f-b4356f21042e"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Employee Hierarchy Analyzer\n",
+            "Enter number of employees: 2\n",
+            "\n",
+            "Employee 1\n",
+            "Enter employee ID: 30538\n",
+            "Enter employee name: bhargav\n",
+            "Enter manager ID (or NONE): 2453\n",
+            "\n",
+            "Employee 2\n",
+            "Enter employee ID: 30580\n",
+            "Enter employee name: karnakar\n",
+            "Enter manager ID (or NONE): 4532\n",
+            "\n",
+            "Employee Hierarchy Report\n",
+            "-------------------------\n",
+            "Employee ID: 30538\n",
+            "Employee Name: bhargav\n",
+            "Reports To: Manager Not Found\n",
+            "-------------------------\n",
+            "Employee ID: 30580\n",
+            "Employee Name: karnakar\n",
+            "Reports To: Manager Not Found\n",
+            "-------------------------\n",
+            "Total Employees: 2\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "print(\"Employee Hierarchy Analyzer\")\n",
+        "\n",
+        "employees = {}\n",
+        "\n",
+        "n = int(input(\"Enter number of employees: \"))\n",
+        "\n",
+        "if n <= 0:\n",
+        "    print(\"Invalid number of employees.\")\n",
+        "else:\n",
+        "    for i in range(n):\n",
+        "        print(f\"\\nEmployee {i + 1}\")\n",
+        "        emp_id = input(\"Enter employee ID: \").strip()\n",
+        "        name = input(\"Enter employee name: \").strip()\n",
+        "        manager_id = input(\"Enter manager ID (or NONE): \").strip().upper()\n",
+        "\n",
+        "        employees[emp_id] = {\n",
+        "            \"name\": name,\n",
+        "            \"manager\": manager_id\n",
+        "        }\n",
+        "\n",
+        "    print(\"\\nEmployee Hierarchy Report\")\n",
+        "    print(\"-------------------------\")\n",
+        "\n",
+        "    for emp_id, details in employees.items():\n",
+        "        manager_id = details[\"manager\"]\n",
+        "\n",
+        "        if manager_id == \"NONE\":\n",
+        "            manager_name = \"No Manager (Top Level)\"\n",
+        "        elif manager_id in employees:\n",
+        "            manager_name = employees[manager_id][\"name\"]\n",
+        "        else:\n",
+        "            manager_name = \"Manager Not Found\"\n",
+        "\n",
+        "        print(\"Employee ID:\", emp_id)\n",
+        "        print(\"Employee Name:\", details[\"name\"])\n",
+        "        print(\"Reports To:\", manager_name)\n",
+        "        print(\"-------------------------\")\n",
+        "\n",
+        "    print(\"Total Employees:\", len(employees))\n",
+        "\n"
+      ]
+    }
+  ]
+}

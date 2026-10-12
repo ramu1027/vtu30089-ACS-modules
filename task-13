@@ -1,0 +1,127 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNbiZZem1gHCx4QpSvQrXPD",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ramu1027/vtu30089-ACS-modules/blob/main/task-13\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 22,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JPja7BzU3zkA",
+        "outputId": "786b56ed-34b7-4b50-9c0a-bda94be9ccd8"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Museum Treasure Route Planner\n",
+            "Enter number of museum rooms: 2\n",
+            "Enter number of room connections: 1\n",
+            "Enter connections between rooms:\n",
+            "1 2\n",
+            "Enter starting room: 1\n",
+            "Enter treasure room: 2\n",
+            "\n",
+            "Shortest Treasure Route:\n",
+            "1 -> 2\n",
+            "Rooms Visited in Route: 2\n",
+            "Connections Travelled: 1\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "from collections import deque\n",
+        "\n",
+        "def find_route(graph, start, treasure):\n",
+        "    queue = deque([[start]])\n",
+        "    visited = {start}\n",
+        "\n",
+        "    while queue:\n",
+        "        path = queue.popleft()\n",
+        "        current = path[-1]\n",
+        "\n",
+        "        if current == treasure:\n",
+        "            return path\n",
+        "\n",
+        "        for room in graph[current]:\n",
+        "            if room not in visited:\n",
+        "                visited.add(room)\n",
+        "                queue.append(path + [room])\n",
+        "\n",
+        "    return None\n",
+        "\n",
+        "\n",
+        "print(\"Museum Treasure Route Planner\")\n",
+        "\n",
+        "n = int(input(\"Enter number of museum rooms: \"))\n",
+        "e = int(input(\"Enter number of room connections: \"))\n",
+        "\n",
+        "if n <= 0 or e < 0:\n",
+        "    print(\"Invalid input.\")\n",
+        "else:\n",
+        "    graph = {i: [] for i in range(1, n + 1)}\n",
+        "    valid = True\n",
+        "\n",
+        "    print(\"Enter connections between rooms:\")\n",
+        "    for _ in range(e):\n",
+        "        u, v = map(int, input().split())\n",
+        "\n",
+        "        if not (1 <= u <= n and 1 <= v <= n) or u == v:\n",
+        "            print(\"Invalid room connection.\")\n",
+        "            valid = False\n",
+        "            break\n",
+        "\n",
+        "        graph[u].append(v)\n",
+        "        graph[v].append(u)\n",
+        "\n",
+        "    if valid:\n",
+        "        start = int(input(\"Enter starting room: \"))\n",
+        "        treasure = int(input(\"Enter treasure room: \"))\n",
+        "\n",
+        "        if not (1 <= start <= n and 1 <= treasure <= n):\n",
+        "            print(\"Invalid starting or treasure room.\")\n",
+        "        else:\n",
+        "            route = find_route(graph, start, treasure)\n",
+        "\n",
+        "            if route:\n",
+        "                print(\"\\nShortest Treasure Route:\")\n",
+        "                print(\" -> \".join(map(str, route)))\n",
+        "                print(\"Rooms Visited in Route:\", len(route))\n",
+        "                print(\"Connections Travelled:\", len(route) - 1)\n",
+        "            else:\n",
+        "                print(\"No route to the treasure exists.\")\n",
+        "\n",
+        "\n",
+        "\n"
+      ]
+    }
+  ]
+}

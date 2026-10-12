@@ -1,0 +1,143 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyORpjRSsv0CDfjWKAK9cpDn",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ramu1027/vtu30089-ACS-modules/blob/main/task-9\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 13,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JPja7BzU3zkA",
+        "outputId": "5e142f8e-edd9-44b0-8de2-03923d956639"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Multi-City Delivery Optimization System\n",
+            "Enter number of cities: 2\n",
+            "Enter city names:\n",
+            "chennai\n",
+            "avadi\n",
+            "\n",
+            "Enter distance matrix (use -1 if route is unavailable):\n",
+            "50\n",
+            "Invalid distance matrix.\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "\n",
+        "\n",
+        "def nearest_neighbor(distance, start, n):\n",
+        "    visited = [False] * n\n",
+        "    route = [start]\n",
+        "    visited[start] = True\n",
+        "    total_distance = 0\n",
+        "    current = start\n",
+        "\n",
+        "    for _ in range(n - 1):\n",
+        "        next_city = -1\n",
+        "        min_distance = float(\"inf\")\n",
+        "\n",
+        "        for city in range(n):\n",
+        "            if not visited[city] and distance[current][city] < min_distance:\n",
+        "                min_distance = distance[current][city]\n",
+        "                next_city = city\n",
+        "\n",
+        "        if next_city == -1 or min_distance == float(\"inf\"):\n",
+        "            return None, 0\n",
+        "\n",
+        "        route.append(next_city)\n",
+        "        visited[next_city] = True\n",
+        "        total_distance += min_distance\n",
+        "        current = next_city\n",
+        "\n",
+        "    if distance[current][start] == float(\"inf\"):\n",
+        "        return None, 0\n",
+        "\n",
+        "    total_distance += distance[current][start]\n",
+        "    route.append(start)\n",
+        "\n",
+        "    return route, total_distance\n",
+        "\n",
+        "\n",
+        "print(\"Multi-City Delivery Optimization System\")\n",
+        "\n",
+        "n = int(input(\"Enter number of cities: \"))\n",
+        "\n",
+        "if n < 2:\n",
+        "    print(\"Enter at least 2 cities.\")\n",
+        "else:\n",
+        "    cities = []\n",
+        "\n",
+        "    print(\"Enter city names:\")\n",
+        "    for i in range(n):\n",
+        "        cities.append(input().strip())\n",
+        "\n",
+        "    distance = []\n",
+        "\n",
+        "    print(\"\\nEnter distance matrix (use -1 if route is unavailable):\")\n",
+        "    valid = True\n",
+        "\n",
+        "    for i in range(n):\n",
+        "        row = list(map(int, input().split()))\n",
+        "\n",
+        "        if len(row) != n:\n",
+        "            valid = False\n",
+        "            break\n",
+        "\n",
+        "        if any(x < -1 for x in row):\n",
+        "            valid = False\n",
+        "            break\n",
+        "\n",
+        "        distance.append([\n",
+        "            float(\"inf\") if x == -1 else x for x in row\n",
+        "        ])\n",
+        "\n",
+        "    if not valid:\n",
+        "        print(\"Invalid distance matrix.\")\n",
+        "    elif any(distance[i][i] != 0 for i in range(n)):\n",
+        "        print(\"Diagonal distances must be zero.\")\n",
+        "    else:\n",
+        "        start = 0\n",
+        "        route, total = nearest_neighbor(distance, start, n)\n",
+        "\n",
+        "        if route is None:\n",
+        "            print(\"No complete delivery route found using this method.\")\n",
+        "        else:\n",
+        "            print(\"\\nOptimized Delivery Route:\")\n",
+        "            print(\" -> \".join(cities[i] for i in route))\n",
+        "            print(\"Total Delivery Distance:\", total)\n"
+      ]
+    }
+  ]
+}

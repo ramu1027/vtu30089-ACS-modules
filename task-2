@@ -1,0 +1,91 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyO9tkoZ0JydAaxZQLmu+2lB",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ramu1027/vtu30089-ACS-modules/blob/main/task-2\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 3,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JPja7BzU3zkA",
+        "outputId": "e8a3988d-7799-4b2d-e8ed-33e635e1bc97"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Warehouse Product Frequency Manager\n",
+            "Enter number of products: 2\n",
+            "Enter product names:\n",
+            "apple\n",
+            "mango\n",
+            "\n",
+            "Warehouse Product Frequency Report\n",
+            "-----------------------------------\n",
+            "APPLE : 1 time(s)\n",
+            "MANGO : 1 time(s)\n",
+            "\n",
+            "Total product entries: 2\n",
+            "Unique products: 2\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "from collections import Counter\n",
+        "\n",
+        "print(\"Warehouse Product Frequency Manager\")\n",
+        "\n",
+        "n = int(input(\"Enter number of products: \"))\n",
+        "\n",
+        "if n <= 0:\n",
+        "    print(\"Invalid number of products.\")\n",
+        "else:\n",
+        "    products = []\n",
+        "\n",
+        "    print(\"Enter product names:\")\n",
+        "    for i in range(n):\n",
+        "        product = input().strip().upper()\n",
+        "        products.append(product)\n",
+        "\n",
+        "    frequency = Counter(products)\n",
+        "\n",
+        "    print(\"\\nWarehouse Product Frequency Report\")\n",
+        "    print(\"-----------------------------------\")\n",
+        "\n",
+        "    for product, count in frequency.items():\n",
+        "        print(f\"{product} : {count} time(s)\")\n",
+        "\n",
+        "    print(\"\\nTotal product entries:\", n)\n",
+        "    print(\"Unique products:\", len(frequency))\n"
+      ]
+    }
+  ]
+}
